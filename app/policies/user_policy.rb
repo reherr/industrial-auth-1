@@ -31,4 +31,8 @@ class UserPolicy < ApplicationPolicy
   def feed?
     true
   end
+
+  def discover?
+    feed?
+  end
 end
