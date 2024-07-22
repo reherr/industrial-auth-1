@@ -23,9 +23,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def show?
-    user == current_user ||
-     !user.private? || 
-     user.followers.include?(current_user)
+    true
   end
 
   def feed?
@@ -34,5 +32,17 @@ class UserPolicy < ApplicationPolicy
 
   def discover?
     feed?
+  end
+
+  def following?
+    show?
+  end
+
+  def followers?
+    show?
+  end
+
+  def show_photos?
+    user == current_user || !user.private? || user.followers.include?(current_user) || current_user.followers.include?(user)
   end
 end
